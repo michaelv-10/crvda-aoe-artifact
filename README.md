@@ -2,7 +2,8 @@
 
 This artifact contains the code and raw results for the paper "Collusion-Resistant
 Privacy-Preserving Data Aggregation, Revisited". It covers the implementation and evaluation in
-Section 7 and the appendix tables and figures listed below. Rerunning the experiments
+Section 7 and the appendix tables and figures listed below. Every table and figure of the
+evaluation can be regenerated from the raw CSV files in `results/`. Rerunning the experiments
 reproduces the raw files, within the variation stated in Section 8.
 
 Table and figure numbers refer to the submitted PDF.
@@ -108,7 +109,29 @@ baseline also has a `--check` mode, a self-test of its correctness and its state
 `e2e_round.py` accepts `--resume` to continue an interrupted run. On macOS,
 `caffeinate -i python3 <script>` keeps the machine awake during long runs.
 
-## 6. Measurement method
+## 6. Regenerating tables and figures from the shipped results
+
+These scripts read `results/`, take seconds and need no Charm installation; `section5_network.py`
+also needs matplotlib.
+
+```
+python3 section5_network.py --e2e-dir results/e2e_results --out results/s5_results   # data of Fig. 1
+python3 make_tex_figures.py        # latex/fig2_round.tex  = Fig. 1 (estimated round delay)
+python3 make_fig_scaling.py        # latex/fig_scaling.tex = Fig. 2 (scaling with n)
+python3 make_ablation.py --s3 results/s3_results/s3_components.csv               # C1-C4, Section 7.4
+python3 make_storage.py --crvda results/s2_results/s2_storage.csv                # Table 9
+python3 make_comparison.py --crvda results/e2e_results/e2e_summary.csv \
+    --vpmda-ext results/vpmda_results_extended/vpmda_summary.csv \
+    --vpmda-main results/vpmda_results_main/vpmda_summary.csv \
+    --masquerade results/masquerade_results/masquerade_summary.csv \
+    --lvp2da results/lvp2da_results_secp224r1_batch/lvp2da_summary.csv          # Table 12
+```
+
+`make_tex_figures.py` also writes three figures of an earlier draft, which are not in the paper:
+`fig1_certifier.tex`, `fig3_scaling_n.tex` and `fig4_cost_of_k.tex`. Tables 4–8 list values
+directly from the CSV files named in Section 5. Tables 3 and 10 contain no measured values.
+
+## 7. Measurement method
 
 - **Timing.** Wall-clock time is measured with `time.perf_counter` and CPU time with
   `time.process_time`. One process executes everything sequentially.
@@ -126,7 +149,7 @@ baseline also has a `--check` mode, a self-test of its correctness and its state
 - **Sizes.** All sizes are byte lengths from the wire codec in `crvda_wire.py`, which uses
   compressed points.
 
-## 7. Expected variation
+## 8. Expected variation
 
 On the same machine, stage totals reproduce within about 1%; their IQRs are below 1% of the median.
 Per-meter report time drifts by up to about 4% between runs. Absolute times on other hardware will
@@ -137,7 +160,7 @@ Run as shipped, the scripts measure version 2.0. Its extra hashing work is small
 should agree with those of version 1.0 within the variation above, but the paper reports
 version 1.0.
 
-## 8. Known deviations
+## 9. Known deviations
 
 - The Masquerade results in the paper used |N| = 2047 bits. The current `masquerade.py` generates
   exactly 2048 bits.
@@ -146,12 +169,8 @@ version 1.0.
 - `make_storage.py` reports the DC's BSGS table in a compact encoding, 291,492 B: a 32-byte point and
   a 4-byte index per entry. Table 9 reports the table as implemented, 404,850 B with Charm-serialized
   keys. The paper gives both.
-- In the measured run of `concurrency_test.py`, the main process imported the wire codec under
-  another file name (`crvda_wire_modified`); the worker processes imported `crvda_wire`. The shipped
-  script imports `crvda_wire` in both. The encoding is the same, and every share returned in the
-  measured run was checked against its expected value.
 
-## 9. Version 2.0: changes to hashing
+## 10. Version 2.0: changes to hashing
 
 Version 2.0 changes only the way hash inputs are formed. The protocol, the challenge inputs (domain
 tags, session identifier, round label, meter identity, statement and earlier proof messages) and
@@ -210,7 +229,7 @@ values under the same round label. The prototype keeps its report cache in memor
 sufficient for a single process. A deployed meter must keep this cache in storage that survives
 restarts.
 
-## 10. Licence
+## 11. Licence
 
 The code is released under the MIT licence (see `LICENSE`). Charm, PBC and the other dependencies
 are used under their own licences and are not included.
