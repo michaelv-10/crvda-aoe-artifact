@@ -1,0 +1,11 @@
+# Python packages for the CRVDA-AOE artifact (tested with Python 3.14.2 on macOS and 3.13 on Linux).
+# System libraries are installed separately: GMP and PBC (macOS: brew install pbc gmp).
+
+charm-crypto-framework==0.62   # pairing groups (BN254) and EC groups; needs PBC and GMP
+gmpy2==2.3.0                   # big-integer arithmetic for the baseline re-implementations
+psutil                         # memory measurement (section2_validate.py)
+matplotlib                     # PNG output of section5_network.py
+
+# Only needed with --data (reading your own readings from an Excel file):
+pandas
+openpyxl

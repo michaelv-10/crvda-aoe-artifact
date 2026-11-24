@@ -1,0 +1,34 @@
+timestamp: 2026-10-26 12:33:14 AEST
+os: macOS-27.0.1-arm64-arm-64bit-Mach-O
+machine: arm64
+processor: arm
+cpu_count: 10
+python: CPython 3.14.2
+charm_crypto_version: 0.62 (distribution 'charm-crypto-framework')
+pairing_backend: NOT auto-detected -- record it from your Charm build (default: PBC)
+curve: BN254
+groups: Type-3 pairing via Charm PairingGroup: G1, G2, GT and Zp (prime order)
+L: 16
+range_proof: single-value Bulletproof (Buenz et al., IEEE S&P 2018, Sec. 4.2); vector generators hash-derived; g1 reused as the inner-product base
+report_signature: Schnorr (R, z): one G1 element + one scalar
+bounded_dlog: baby-step giant-step over [0, n(2^L-1)]; the table is built once after Setup, reported as bsgs_precompute, and excluded from the per-round DC time (dc_recovery_total = aggrdec + recovery_prove)
+certcombine_share_checks: k+1 checks, two SEPARATE pairings each (no multi-pairing / batch API)
+sweep: n in [1000], k = ceil(20% of n)
+input_data: real dataset /Users/michaelvinushan/PhD/Charm_Framework_Scheme/sample_smdata_1.xlsx
+trials_per_point: {1000: 1}
+warmup: 1 untimed full protocol round(s) on a small instance (n=8, k=1, same L and curve), once before the sweep
+seed: 1234
+statistics: CSV gives mean, sample standard deviation (N-1), median, quartiles and IQR per point; choose one summary for the paper and state it
+timer: time.perf_counter() (wall clock), single process, no network transfer
+timing_includes: hash-to-group, Fiat-Shamir and digest hashing, and the message serialization performed inside each timed method
+timing_excludes: Setup (reported separately, not part of the round totals), bounded-DLog precomputation (reported separately), test-input generation, printing and CSV output
+measurement_policy: each (n, k%) point is measured independently with a fresh scheme instance per trial; nothing is extrapolated, except the derived columns certshare_total_Q and cert_total_work = (k+1) x one measured certifier; shares of members 2..k+1 are computed directly (Hcm ** zj) by the harness
+experiment: evaluation plan Section 1: one complete round Report -> Verify per trial
+execution: single process on one machine: all n meters and all k+1 certifiers run SEQUENTIALLY (concurrency 1); messages passed in memory, no network
+certifiers: all k+1 certifiers executed when n <= 1000; otherwise one executed and certification wall/CPU derived as (k+1) x one
+cpu_timer: time.process_time() (CPU time of this process)
+parallel_bound: ANALYTICAL lower bound, zero network: max Report + Build + max CertShare + CertCombine + DC + Verify; n meters and k+1 certifiers concurrent
+network_model: estimate: per stage RTT/2 + bytes*8/B on the bottleneck link; AG link shared (n uploads, k+1 transcript copies serialized); no TCP handshake, slow start, loss or header overhead
+bandwidths_mbps: [10, 100]
+rtts_ms: [10, 50, 100]
+byte_encoding: compressed BN254 sizes {'G1': 32, 'G2': 64, 'ZR': 32, 'GT': 384}; i = 2 B; digest = 32 B; X = fewest bytes holding n(2^L-1); label = 4-byte round number (ell_t recomputed)
