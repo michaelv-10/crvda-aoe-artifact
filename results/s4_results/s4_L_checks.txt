@@ -1,0 +1,17 @@
+Part L: n = 200, k = 40, L in [8, 16, 32]; readings uniform in [0, 2^L)
+Validity checks (must pass before costs are reported):
+L = 8:
+  PASS: complete round (incl. a reading of 2^L - 1 = 255) verifies and recovers the exact sum
+  PASS: complete round with all readings 0 (lower end of the range) recovers 0
+  PASS: an honest meter refuses to report x = 2^L
+  PASS: a corrupted meter's x = 2^L with valid linking proof and signature is rejected by the range proof
+L = 16:
+  PASS: complete round (incl. a reading of 2^L - 1 = 65535) verifies and recovers the exact sum
+  PASS: complete round with all readings 0 (lower end of the range) recovers 0
+  PASS: an honest meter refuses to report x = 2^L
+  PASS: a corrupted meter's x = 2^L with valid linking proof and signature is rejected by the range proof
+L = 32:
+  PASS: complete round (incl. a reading of 2^L - 1 = 4294967295) verifies and recovers the exact sum
+  PASS: complete round with all readings 0 (lower end of the range) recovers 0
+  PASS: an honest meter refuses to report x = 2^L
+  PASS: a corrupted meter's x = 2^L with valid linking proof and signature is rejected by the range proof

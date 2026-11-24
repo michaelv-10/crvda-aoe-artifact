@@ -1,0 +1,21 @@
+experiment: Table IV: w concurrent certifier processes on one machine, each running CertShare (GoodTrans + BLS share) on the same encoded n-report transcript
+python: 3.14.2
+platform: macOS-27.0.1-arm64-arm-64bit-Mach-O
+machine: arm64
+processor: arm
+cpu_brand: Apple M4
+logical_cpus: 10
+perf_cores (hw.perflevel0.physicalcpu): 4
+efficiency_cores (hw.perflevel1.physicalcpu): 6
+memory_bytes: 17179869184
+curve: BN254
+n: 1000
+k: 200
+L: 16
+workers: [1, 2, 4, 8]
+trials: 3
+seed: 1234
+data: synthetic uniform random readings in [0, 2^L)
+start_method: spawn (each worker is a fresh process)
+timers: time.perf_counter (wall), time.process_time (CPU of the worker), time.time (cross-process completion)
+charm-crypto-framework: 0.62

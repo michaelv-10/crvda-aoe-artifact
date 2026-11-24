@@ -1,0 +1,85 @@
+n,k,party,component,bytes,when
+50,10,meter,"secret keys (s_i, t_i, rho_i, rsk_i)",131,persistent
+50,10,meter,"public data used by Report (header, g1, u, h, K_i)",174,persistent
+50,10,meter,"range-proof generators hx, g_vec, h_vec (optional cache)",1056,"persistent, re-derivable by hashing"
+50,10,meter,cached report for the open round (encrypt-once),934,"per round, until the round closes"
+50,10,"certifier (meter in Q), in addition",certification key z_j,35,persistent
+50,10,"certifier (meter in Q), in addition","roster (i, rvk_i, K_i) for all n meters",3300,persistent
+50,10,AG,"public data for CertCombine (header, g2, (j, W_j) for Q)",836,persistent
+50,10,AG,transcript T_t and Gamma_t kept for audit (optional),46800,"per round, if archived"
+50,10,DC,"decryption key (s0, t0)",65,persistent
+50,10,DC,"public data (header, g1, g2, W_Q)",206,persistent
+50,10,verifier,"public data (header, g1, S0, T0, g2, W_Q)",270,persistent
+50,10,all parties,full public parameters and roster (as distributed),4360,distributed once at setup
+50,10,DC,"discrete-log table, 1812 entries (as implemented: Charm-serialized keys)",90600,"persistent (depends only on n, L), or rebuilt at start-up"
+50,10,DC,"discrete-log table, compact form (32 B point + 4 B index)",65232,persistent
+100,20,meter,"secret keys (s_i, t_i, rho_i, rsk_i)",131,persistent
+100,20,meter,"public data used by Report (header, g1, u, h, K_i)",175,persistent
+100,20,meter,"range-proof generators hx, g_vec, h_vec (optional cache)",1056,"persistent, re-derivable by hashing"
+100,20,meter,cached report for the open round (encrypt-once),934,"per round, until the round closes"
+100,20,"certifier (meter in Q), in addition",certification key z_j,35,persistent
+100,20,"certifier (meter in Q), in addition","roster (i, rvk_i, K_i) for all n meters",6600,persistent
+100,20,AG,"public data for CertCombine (header, g2, (j, W_j) for Q)",1497,persistent
+100,20,AG,transcript T_t and Gamma_t kept for audit (optional),93500,"per round, if archived"
+100,20,DC,"decryption key (s0, t0)",65,persistent
+100,20,DC,"public data (header, g1, g2, W_Q)",207,persistent
+100,20,verifier,"public data (header, g1, S0, T0, g2, W_Q)",271,persistent
+100,20,all parties,full public parameters and roster (as distributed),8321,distributed once at setup
+100,20,DC,"discrete-log table, 2561 entries (as implemented: Charm-serialized keys)",128050,"persistent (depends only on n, L), or rebuilt at start-up"
+100,20,DC,"discrete-log table, compact form (32 B point + 4 B index)",92196,persistent
+250,50,meter,"secret keys (s_i, t_i, rho_i, rsk_i)",131,persistent
+250,50,meter,"public data used by Report (header, g1, u, h, K_i)",175,persistent
+250,50,meter,"range-proof generators hx, g_vec, h_vec (optional cache)",1056,"persistent, re-derivable by hashing"
+250,50,meter,cached report for the open round (encrypt-once),934,"per round, until the round closes"
+250,50,"certifier (meter in Q), in addition",certification key z_j,35,persistent
+250,50,"certifier (meter in Q), in addition","roster (i, rvk_i, K_i) for all n meters",16500,persistent
+250,50,AG,"public data for CertCombine (header, g2, (j, W_j) for Q)",3477,persistent
+250,50,AG,transcript T_t and Gamma_t kept for audit (optional),233600,"per round, if archived"
+250,50,DC,"decryption key (s0, t0)",65,persistent
+250,50,DC,"public data (header, g1, g2, W_Q)",207,persistent
+250,50,verifier,"public data (header, g1, S0, T0, g2, W_Q)",271,persistent
+250,50,all parties,full public parameters and roster (as distributed),20201,distributed once at setup
+250,50,DC,"discrete-log table, 4049 entries (as implemented: Charm-serialized keys)",202450,"persistent (depends only on n, L), or rebuilt at start-up"
+250,50,DC,"discrete-log table, compact form (32 B point + 4 B index)",145764,persistent
+500,100,meter,"secret keys (s_i, t_i, rho_i, rsk_i)",131,persistent
+500,100,meter,"public data used by Report (header, g1, u, h, K_i)",176,persistent
+500,100,meter,"range-proof generators hx, g_vec, h_vec (optional cache)",1056,"persistent, re-derivable by hashing"
+500,100,meter,cached report for the open round (encrypt-once),934,"per round, until the round closes"
+500,100,"certifier (meter in Q), in addition",certification key z_j,35,persistent
+500,100,"certifier (meter in Q), in addition","roster (i, rvk_i, K_i) for all n meters",33000,persistent
+500,100,AG,"public data for CertCombine (header, g2, (j, W_j) for Q)",6778,persistent
+500,100,AG,transcript T_t and Gamma_t kept for audit (optional),467100,"per round, if archived"
+500,100,DC,"decryption key (s0, t0)",65,persistent
+500,100,DC,"public data (header, g1, g2, W_Q)",208,persistent
+500,100,verifier,"public data (header, g1, S0, T0, g2, W_Q)",272,persistent
+500,100,all parties,full public parameters and roster (as distributed),40002,distributed once at setup
+500,100,DC,"discrete-log table, 5726 entries (as implemented: Charm-serialized keys)",286300,"persistent (depends only on n, L), or rebuilt at start-up"
+500,100,DC,"discrete-log table, compact form (32 B point + 4 B index)",206136,persistent
+750,150,meter,"secret keys (s_i, t_i, rho_i, rsk_i)",131,persistent
+750,150,meter,"public data used by Report (header, g1, u, h, K_i)",176,persistent
+750,150,meter,"range-proof generators hx, g_vec, h_vec (optional cache)",1056,"persistent, re-derivable by hashing"
+750,150,meter,cached report for the open round (encrypt-once),934,"per round, until the round closes"
+750,150,"certifier (meter in Q), in addition",certification key z_j,35,persistent
+750,150,"certifier (meter in Q), in addition","roster (i, rvk_i, K_i) for all n meters",49500,persistent
+750,150,AG,"public data for CertCombine (header, g2, (j, W_j) for Q)",10078,persistent
+750,150,AG,transcript T_t and Gamma_t kept for audit (optional),700600,"per round, if archived"
+750,150,DC,"decryption key (s0, t0)",65,persistent
+750,150,DC,"public data (header, g1, g2, W_Q)",208,persistent
+750,150,verifier,"public data (header, g1, S0, T0, g2, W_Q)",272,persistent
+750,150,all parties,full public parameters and roster (as distributed),59802,distributed once at setup
+750,150,DC,"discrete-log table, 7012 entries (as implemented: Charm-serialized keys)",350600,"persistent (depends only on n, L), or rebuilt at start-up"
+750,150,DC,"discrete-log table, compact form (32 B point + 4 B index)",252432,persistent
+1000,200,meter,"secret keys (s_i, t_i, rho_i, rsk_i)",131,persistent
+1000,200,meter,"public data used by Report (header, g1, u, h, K_i)",177,persistent
+1000,200,meter,"range-proof generators hx, g_vec, h_vec (optional cache)",1056,"persistent, re-derivable by hashing"
+1000,200,meter,cached report for the open round (encrypt-once),934,"per round, until the round closes"
+1000,200,"certifier (meter in Q), in addition",certification key z_j,35,persistent
+1000,200,"certifier (meter in Q), in addition","roster (i, rvk_i, K_i) for all n meters",66000,persistent
+1000,200,AG,"public data for CertCombine (header, g2, (j, W_j) for Q)",13379,persistent
+1000,200,AG,transcript T_t and Gamma_t kept for audit (optional),934100,"per round, if archived"
+1000,200,DC,"decryption key (s0, t0)",65,persistent
+1000,200,DC,"public data (header, g1, g2, W_Q)",209,persistent
+1000,200,verifier,"public data (header, g1, S0, T0, g2, W_Q)",273,persistent
+1000,200,all parties,full public parameters and roster (as distributed),79603,distributed once at setup
+1000,200,DC,"discrete-log table, 8097 entries (as implemented: Charm-serialized keys)",404850,"persistent (depends only on n, L), or rebuilt at start-up"
+1000,200,DC,"discrete-log table, compact form (32 B point + 4 B index)",291492,persistent

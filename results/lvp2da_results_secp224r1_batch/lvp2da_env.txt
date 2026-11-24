@@ -1,0 +1,19 @@
+scheme: LV-P2DA, Zhu et al., IEEE IoT-J 2024 -- re-implementation
+curve: secp224r1 (Charm ECGroup / OpenSSL), verification: batch, batch l = 5
+L = 16, n = [50, 100, 250, 500, 750, 1000], trials = {50: 10, 100: 10, 250: 10, 500: 5, 750: 3, 1000: 3}, warm-up = 1 round (n = 8)
+readings: confidential smart-meter readings (not included)
+python 3.14.2, macOS-27.0.1-arm64-arm-64bit-Mach-O, arm64
+
+Stage definitions (wall clock, time.perf_counter, single process, sequential)
+  setup_ms            SystemSetup + KeyExtract/Certification of n meters, BS, ESP (one-time)
+  dlog_table_ms       baby-step table for [0, n(2^L - 1)] (one-time)
+  sm_encrypt_ms       one meter: SM-Encryption           (median over the n meters)
+  sm_sign_ms          one meter: SM-Sign                 (median over the n meters)
+  sm_total_ms         one meter: encryption + signature  (median over the n meters)
+  bs_verify_ms        BS-Verification of all n reports (batch or single, see verify)
+  bs_aggsig_ms        BS-AggSig: R_bs, C_bs and the BS signature
+  bs_total_ms         bs_verify + bs_aggsig
+  esp_verify_ms       ESP-Verification (single verification of sigma_bs)
+  esp_decrypt_ms      ESP-Decryption incl. the bounded discrete log
+  esp_total_ms        esp_verify + esp_decrypt
+  sm_msg_B, bs_msg_B  ID + R + C + sigma (D, U, v) + t, |ID| = |t| = 4 B, compressed points

@@ -1,0 +1,23 @@
+scheme: Masquerade (base, not zk-Masquerade), Mouris & Tsoutsos, ACM TOIT 2025 -- re-implementation
+Paillier + multiplicative commitment over N^2, |N| = 2047, |e| = 4095 (gmpy2 2.3.0 / GMP)
+key generation: 21.01 s (once per run)
+n = [50, 100, 250, 500, 750, 1000], trials = {50: 10, 100: 10, 250: 10, 500: 5, 750: 3, 1000: 3}, warm-up = 1 round (n = 8)
+readings: confidential smart-meter readings (not included)
+python 3.14.2, macOS-27.0.1-arm64-arm-64bit-Mach-O, arm64
+
+Stage definitions (wall clock, time.perf_counter, single process, sequential)
+  keygen_s             analyst Key-Generation, once per run (excluded from per-round figures)
+  part_enc_ms          one participant: ct_i = Enc(m_i, rho_i)           (median over the n participants)
+  part_commit_ms       one participant: c_i = Com(ct_i, r_i)              (median over the n participants)
+  part_total_ms        one participant: enc + commit                      (median over the n participants)
+  cur_verify_ms        curator: n commitment openings
+  cur_aggregate_ms     curator: ct_sum and r_sum
+  cur_total_ms         curator total
+  ana_audit_ms         analyst: prod c_i == Com(ct_sum, r_sum)
+  ana_decrypt_ms       analyst: Dec(ct_sum)
+  ana_prove_ms         analyst: ct'_sum, ct_0, witness and Protocol 1 proof
+  ana_total_ms         analyst total
+  aud_commits_ms       auditor: prod c_i == Com(ct_sum, r_sum)     (O(n))
+  aud_decryption_ms    auditor: ct'_sum, ct_0 and Protocol 1 verification
+  aud_total_ms         auditor total
+  *_B                  message sizes; elements of Z_{N^2} at |N^2|/8 bytes, sum 8 B

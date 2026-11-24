@@ -1,0 +1,25 @@
+scheme: VPMDA (main), Zhang et al., IEEE TDSC 2022 -- re-implementation
+pairing group: BN254 (Charm/PBC), asymmetric adaptation of the paper's symmetric pairing
+Paillier: |N| = 2048 bits (gmpy2/GMP)
+k = 1 data type(s), eta = 65535
+n = [50, 100, 250, 500, 750, 1000], trials = {50: 10, 100: 10, 250: 10, 500: 5, 750: 3, 1000: 3}, warm-up = 1 round (n = 8)
+readings: confidential smart-meter readings (not included)
+python 3.14.2, gmpy2 2.3.0, macOS-27.0.1-arm64-arm-64bit-Mach-O, arm64
+
+Stage definitions (all times wall clock, time.perf_counter, single process, sequential)
+  setup_ms            TTP Initialization (one-time; excluded from per-round figures)
+  sm_encrypt_ms       one meter: CT_i                       (median over the n meters of the trial)
+  sm_auth_ms          one meter: sigma_i                    (median over the n meters)
+  sm_total_ms         one meter: CT_i + sigma_i             (median over the n meters)
+  ag_combine_ct_ms    AG: CT = prod CT_i
+  ag_tau_ms           AG: prg + tau_n = h3(CT^N || nonce)
+  ag_sigma_ms         AG: aggregated authenticator sigma
+  ag_xi_ms            AG: blind value xi
+  ag_total_ms         AG: sum of the four
+  cc_tau_ms           CC: prg + tau_n from h1(T)^{N^2 gamma'}
+  cc_pairing_check_ms CC: integrity verification equation (main n+2 pairings; extended 2)
+  cc_verify_ms        CC: cc_tau + cc_pairing_check
+  cc_decrypt_ms       CC: W, Q and Algorithm 1
+  cc_total_ms         CC: verify + decrypt
+  sm_msg_B, ag_msg_B  bytes SM->AG {CT_i, sigma_i, T} and AG->CC (CT, sigma, xi, T);
+                      compressed BN254 (G1 32 B, G2 64 B, Z_p 32 B), CT 2|N| bits, T 8 B

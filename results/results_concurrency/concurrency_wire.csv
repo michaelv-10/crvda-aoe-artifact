@@ -1,0 +1,2 @@
+n,report_B,encode_report_median_ms,encode_report_q1_ms,encode_report_q3_ms,transcript_B,decode_transcript_median_ms,decode_transcript_q1_ms,decode_transcript_q3_ms,decode_samples
+1000,934,0.024041510187089443,0.023582950234413147,0.024667009711265564,934068,610.826582997106,479.8784169834107,680.5336250690743,45
